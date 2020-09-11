@@ -82,3 +82,10 @@
 **`PUT /movies/:movieId/:actorId`**
 
 - Add actor to movies list
+
+---
+
+**`DELETE /movies`**
+
+- Deletes all movies within a date range
+- `startYear` and `endYear` are required body parameters
