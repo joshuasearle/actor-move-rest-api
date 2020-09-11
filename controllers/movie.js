@@ -43,3 +43,14 @@ module.exports.updateOne = async (req, res) => {
     res.status(400).json(e);
   }
 };
+
+module.exports.deleteOne = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const movie = Movie.findByIdAndRemove({ _id: id });
+    if (!movie) res.status(404).json();
+    res.json(movie);
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
