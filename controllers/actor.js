@@ -5,7 +5,7 @@ const Movie = require('../models/movie');
 
 module.exports.getAll = async (req, res) => {
   try {
-    const actors = await Actor.find();
+    const actors = await Actor.find().populate('movies');
     res.json(actors);
   } catch (e) {
     res.json(e);
