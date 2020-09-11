@@ -5,16 +5,14 @@ const Movie = require('../models/movie');
 module.exports.getAll = async (req, res) => {
   const { startYear, endYear } = req.query;
   try {
-    let movies;
-    if (startYear === undefined && endYear === undefined) {
-      movies = await Movie.find();
-    } else if (startYear === undefined) {
-      movies = await Movie.where('year').lte(endYear);
-    } else if (endYear === undefined) {
-      movies = await Movie.where('year').gte(startYear);
-    } else {
-      movies = await Movie.where('year').lte(endYear).gte(startYear);
+    let moviePromise = Movie.find();
+    if (startYear != undefined) {
+      moviePromise = moviePromise.where('year').gte(startYear);
     }
+    if (endYear != undefined) {
+      moviePromise = moviePromise.where('year').lte(endYear);
+    }
+    const movies = await moviePromise.populate('actors');
     res.json(movies);
   } catch (e) {
     console.log(e);
