@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const Actor = require('../models/actor');
-const Movie = require('../models/movie');
 
 module.exports.getAll = async (req, res) => {
   try {
