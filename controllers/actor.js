@@ -52,7 +52,8 @@ module.exports.deleteOne = async (req, res) => {
     if (!actor) res.status(404).json();
 
     // If deleteMovies option is selected, delte the movies
-    if (req.query.deleteMovies) await deleteActorMovies(actor);
+    // Equality of string, as query param will be string not bool
+    if (req.query.deleteMovies === 'true') await deleteActorMovies(actor);
 
     res.json(actor);
   } catch (e) {
