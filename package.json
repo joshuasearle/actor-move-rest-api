@@ -1,0 +1,27 @@
+{
+  "name": "week7",
+  "version": "1.0.0",
+  "description": "REST API for actors, and their movies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuasearle/actor-movie-rest-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshuasearle/actor-movie-rest-api/issues"
+  },
+  "homepage": "https://github.com/joshuasearle/actor-movie-rest-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
