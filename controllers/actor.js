@@ -46,14 +46,13 @@ module.exports.updateOne = async (req, res) => {
 };
 
 module.exports.deleteOne = async (req, res) => {
-  if (req.body.deleteMovies) return await deleteActorAndMovies(req, res);
   const id = req.params.id;
   try {
     const actor = await Actor.findOneAndRemove({ _id: id });
     if (!actor) res.status(404).json();
 
     // If deleteMovies option is selected, delte the movies
-    if (req.body.deleteMovies) await deleteActorMovies(actor);
+    if (req.query.deleteMovies) await deleteActorMovies(actor);
 
     res.json(actor);
   } catch (e) {

@@ -29,7 +29,7 @@
 **`DELETE /actors/:id`**
 
 - Delete one actor
-- Can optionally delete all of the actors movies with `deleteMovies: true` in the request body
+- Can optionally delete all of the actors movies with `?deleteMovies=true` in the request body
 
 ---
 
