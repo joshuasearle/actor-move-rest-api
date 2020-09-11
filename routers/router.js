@@ -22,6 +22,7 @@ router.delete('/movies/:id', movies.deleteOne);
 router.delete('/movies/:movieId/:actorId', movies.removeActorFromMovie);
 // My implementation is idempotent
 router.put('/movies/:movieId/:actorId', movies.addActor);
+router.delete('/movies', movies.deleteMovieRange);
 
 // 404 route
 router.use('/', (req, res) => res.status(404).json());

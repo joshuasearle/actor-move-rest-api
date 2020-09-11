@@ -100,3 +100,16 @@ module.exports.addActor = async (req, res) => {
     res.status(400).json(e);
   }
 };
+
+module.exports.deleteMovieRange = async (req, res) => {
+  const { startYear, endYear } = req.body;
+  try {
+    const result = await Movie.deleteMany({
+      year: { $lte: endYear, $gte: startYear },
+    });
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+};
