@@ -3,10 +3,21 @@ const mongoose = require('mongoose');
 const Movie = require('../models/movie');
 
 module.exports.getAll = async (req, res) => {
+  const { startYear, endYear } = req.query;
   try {
-    const movies = await Movie.find();
+    let movies;
+    if (startYear === undefined && endYear === undefined) {
+      movies = await Movie.find();
+    } else if (startYear === undefined) {
+      movies = await Movie.where('year').lte(endYear);
+    } else if (endYear === undefined) {
+      movies = await Movie.where('year').gte(startYear);
+    } else {
+      movies = await Movie.where('year').lte(endYear).gte(startYear);
+    }
     res.json(movies);
   } catch (e) {
+    console.log(e);
     res.status(400).json(e);
   }
 };
