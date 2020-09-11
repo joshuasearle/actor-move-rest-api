@@ -20,6 +20,7 @@ router.post('/movies', movies.createOne);
 router.get('/movies/:id', movies.getOne);
 router.put('/movies/:id', movies.updateOne);
 router.delete('/movies/:id', movies.deleteOne);
+router.put('/movies/:movieId/:actorId', movies.removeActorFromMovie);
 
 // 404 route
 router.use('/', (req, res) => res.status(404).json());
