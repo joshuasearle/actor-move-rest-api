@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { findOneAndUpdate } = require('../models/movie');
 
 const Movie = require('../models/movie');
 
@@ -15,7 +16,6 @@ module.exports.getAll = async (req, res) => {
     const movies = await moviePromise.populate('actors');
     res.json(movies);
   } catch (e) {
-    console.log(e);
     res.status(400).json(e);
   }
 };
@@ -71,13 +71,22 @@ module.exports.removeActorFromMovie = async (req, res) => {
     // Probably a way to do this in one database call
     const movie = await Movie.findById(movieId);
     if (!movie) return res.status(404).json();
-    const result = await findByIdAndUpdate(
-      movieId,
-      'actors',
-      movie.actors.filter(movieActorId => movieActorId != actorId)
+    console.log(
+      movie.actors.filter(movieActorId => String(movieActorId) != actorId)
+    );
+    const result = await Movie.findOneAndUpdate(
+      { _id: movieId },
+      {
+        $set: {
+          actors: movie.actors.filter(
+            movieActorId => String(movieActorId) != actorId
+          ),
+        },
+      }
     );
     res.json(result);
   } catch (e) {
+    console.log(e);
     res.status(400).json(e);
   }
 };
@@ -103,16 +112,15 @@ module.exports.addActor = async (req, res) => {
 
 module.exports.deleteMovieRange = async (req, res) => {
   const { startYear, endYear } = req.body;
-  if (startYear === undefined || endYear === undefined) {
-    throw new Error('startYear and endYear are required.');
-  }
   try {
+    if (startYear === undefined || endYear === undefined) {
+      throw new Error('startYear and endYear are required.');
+    }
     const result = await Movie.deleteMany({
       year: { $lte: endYear, $gte: startYear },
     });
     res.json(result);
   } catch (e) {
-    console.log(e);
     res.status(400).json(e);
   }
 };
