@@ -33,9 +33,9 @@
 
 ---
 
-**`PUT /actors/:actorId/:movieId`**
+**`DELETE /actors/:actorId/:movieId`**
 
-- Add movie to actor's movie list
+- Delete movie from actor's movie list
 
 ---
 
