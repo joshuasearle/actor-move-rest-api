@@ -69,3 +69,21 @@ const deleteActorMovies = async actor => {
   });
   await Promise.all(movieDeletions);
 };
+
+module.exports.removeMovieFromActor = async (req, res) => {
+  const { actorId, movieId } = req.params;
+  try {
+    // TODO
+    // Probably a way to do this in one database call
+    const actor = await Actor.findById(actorId);
+    if (!actor) return res.status(404).json();
+    const result = await findByIdAndUpdate(
+      actorId,
+      'movies',
+      actor.movies.filter(actorMovieId => actorMovieId != movieId)
+    );
+    res.json(result);
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
