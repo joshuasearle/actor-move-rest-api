@@ -11,7 +11,7 @@ module.exports.getAll = async (req, res) => {
   }
 };
 
-module.exprts.createOne = async (req, res) => {
+module.exports.createOne = async (req, res) => {
   const movieDetails = { ...req.body, _id: mongoose.Types.ObjectId() };
   const movie = new Movie(movieDetails);
   try {
