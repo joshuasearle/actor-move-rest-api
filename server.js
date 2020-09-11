@@ -2,10 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const router = require('./routers/router');
+
 const app = express();
 
 // Add post request url decoding
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Connect requests to router
+app.use('/', router);
 
 // Connect to Db, and start server
 const url = 'mongodb://localhost:27017/fit2095';
