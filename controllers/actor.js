@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const Actor = require('../models/actor');
+const Movie = require('../models/movie');
 
 module.exports.getAll = async (req, res) => {
   try {
@@ -45,12 +46,26 @@ module.exports.updateOne = async (req, res) => {
 };
 
 module.exports.deleteOne = async (req, res) => {
+  if (req.body.deleteMovies) return await deleteActorAndMovies(req, res);
   const id = req.params.id;
   try {
     const actor = await Actor.findOneAndRemove({ _id: id });
     if (!actor) res.status(404).json();
+
+    // If deleteMovies option is selected, delte the movies
+    if (req.body.deleteMovies) await deleteActorMovies(actor);
+
     res.json(actor);
   } catch (e) {
     res.status(400).json(e);
   }
+};
+
+const deleteActorMovies = async actor => {
+  const movieIds = actor.movies;
+  // Delete all movies in parallel
+  const movieDeletions = movieIds.map(movieId => {
+    return Movie.deleteOne({ _id: movieId });
+  });
+  await Promise.all(movieDeletions);
 };
