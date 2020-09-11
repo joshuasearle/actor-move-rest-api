@@ -44,6 +44,7 @@
 **`GET /movies`**
 
 - Get list of all movies
+- Can filter by data with `/movies?startYear=${year}&endYear=${year}`
 
 ---
 
