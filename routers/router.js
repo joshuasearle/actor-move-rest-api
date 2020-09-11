@@ -11,7 +11,7 @@ router.post('/actors', actors.createOne);
 router.get('/actors/:id', actors.getOne);
 router.put('/actors/:id', actors.updateOne);
 router.delete('/actors/:id', actors.deleteOne);
-router.put('/actors/:actorId/:movieId', actors.removeMovieFromActor);
+router.delete('/actors/:actorId/:movieId', actors.removeMovieFromActor);
 
 // Movies routes
 router.get('/movies', movies.getAll);
