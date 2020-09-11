@@ -72,3 +72,22 @@ module.exports.removeActorFromMovie = async (req, res) => {
     res.status(400).json(e);
   }
 };
+
+module.exports.addActor = async (req, res) => {
+  const { actorId, movieId } = req.params;
+  try {
+    const movie = await Movie.findById(movieId);
+    const actors = movie.actors;
+    const actorInMovie = actors.includes(actorId);
+    if (!actorInMovie) {
+      await Movie.findOneAndUpdate(
+        { _id: movieId },
+        { $push: { actors: actorId } }
+      );
+    }
+    if (!movie) return res.status(404).json();
+    res.json(movie);
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
