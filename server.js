@@ -7,7 +7,8 @@ const router = require('./routers/router');
 const app = express();
 
 // Add post request url decoding
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Connect requests to router
 app.use('/', router);
