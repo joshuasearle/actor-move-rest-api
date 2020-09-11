@@ -103,6 +103,9 @@ module.exports.addActor = async (req, res) => {
 
 module.exports.deleteMovieRange = async (req, res) => {
   const { startYear, endYear } = req.body;
+  if (startYear === undefined || endYear === undefined) {
+    throw new Error('startYear and endYear are required.');
+  }
   try {
     const result = await Movie.deleteMany({
       year: { $lte: endYear, $gte: startYear },
