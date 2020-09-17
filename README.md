@@ -39,6 +39,13 @@
 
 ---
 
+**`POST /actors/:actorId/movies`**
+
+- Add movie to actor's movie list
+- Need to encode a movieId in the request body
+
+---
+
 ## Movie Endpoints
 
 **`GET /movies`**
