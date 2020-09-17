@@ -51,7 +51,7 @@ module.exports.deleteOne = async (req, res) => {
     const actor = await Actor.findOneAndRemove({ _id: id });
     if (!actor) res.status(404).json();
 
-    // If deleteMovies option is selected, delte the movies
+    // If deleteMovies option is selected, delete the movies
     // Equality of string, as query param will be string not bool
     if (req.query.deleteMovies === 'true') await deleteActorMovies(actor);
 
