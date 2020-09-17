@@ -70,13 +70,9 @@ module.exports.deleteOne = async (req, res) => {
 module.exports.removeActorFromMovie = async (req, res) => {
   const { actorId, movieId } = req.params;
   try {
-    // TODO
     // Probably a way to do this in one database call
     const movie = await Movie.findById(movieId);
     if (!movie) return res.status(404).json();
-    console.log(
-      movie.actors.filter(movieActorId => String(movieActorId) != actorId)
-    );
     const result = await Movie.findOneAndUpdate(
       { _id: movieId },
       {
@@ -89,7 +85,6 @@ module.exports.removeActorFromMovie = async (req, res) => {
     );
     res.json(result);
   } catch (e) {
-    console.log(e);
     res.status(400).json(e);
   }
 };

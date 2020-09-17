@@ -77,11 +77,8 @@ module.exports.removeMovieFromActor = async (req, res) => {
     // Probably a way to do this in one database call
     const actor = await Actor.findById(actorId);
     if (!actor) return res.status(404).json();
-    const result = await findByIdAndUpdate(
-      actorId,
-      'movies',
-      actor.movies.filter(actorMovieId => actorMovieId != movieId)
-    );
+    actor.movies = actor.movies.filter(actorMovieId => actorMovieId != movieId);
+    const result = await actor.save();
     res.json(result);
   } catch (e) {
     res.status(400).json(e);
@@ -94,7 +91,8 @@ module.exports.addMovie = async (req, res) => {
   try {
     const actor = await Actor.findOne({ _id: actorId });
     if (!actor) return res.status(404).json();
-    const movie = Movie.findOne({ _id: moiveId });
+    const movie = await Movie.findOne({ _id: moiveId });
+    if (!movie) return res.status(404).json();
     actor.movies.push(movie._id);
     await actor.save();
     res.json(actor);
