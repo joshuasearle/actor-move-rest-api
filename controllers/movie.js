@@ -7,6 +7,9 @@ module.exports.getAll = async (req, res) => {
   const { startYear, endYear } = req.query;
   try {
     let moviePromise = Movie.find();
+    if (startYear && endYear && startYear > endYear) {
+      throw new Error('Start year must be less than end year');
+    }
     if (startYear != undefined) {
       moviePromise = moviePromise.where('year').gte(startYear);
     }
@@ -114,7 +117,7 @@ module.exports.deleteMovieRange = async (req, res) => {
   const { startYear, endYear } = req.body;
   try {
     if (startYear === undefined || endYear === undefined) {
-      throw new Error('startYear and endYear are required.');
+      throw new Error('startYear and endYear are both required.');
     }
     const result = await Movie.deleteMany({
       year: { $lte: endYear, $gte: startYear },
