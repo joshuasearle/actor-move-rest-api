@@ -48,7 +48,7 @@
 
 **`GET /actors/movies/:rating`**
 
-- Get all actors that have started in a movie with `rating` rating or greater
+- Get all actors that have stared in a movie with `rating` rating or greater
 
 ## Movie Endpoints
 
