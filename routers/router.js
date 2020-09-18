@@ -13,6 +13,7 @@ router.put('/actors/:id', actors.updateOne);
 router.delete('/actors/:id', actors.deleteOne);
 router.post('/actors/:id/movies', actors.addMovie);
 router.delete('/actors/:actorId/:movieId', actors.removeMovieFromActor);
+router.get('/actors/movies/:rating', actors.actorsWithRating);
 
 // Movies routes
 router.get('/movies', movies.getAll);

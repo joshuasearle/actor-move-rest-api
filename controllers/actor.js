@@ -100,3 +100,20 @@ module.exports.addMovie = async (req, res) => {
     res.status(400).json(e);
   }
 };
+
+module.exports.actorsWithRating = async (req, res) => {
+  const rating = req.params.rating;
+  try {
+    const actors = await Actor.find().populate('movies');
+    // Filter out actors with no movies with rating greater than param rating
+    // May be complex query to filter using the database
+    const filteredActors = actors.filter(actor => {
+      // Convert to bool
+      return !!actor.movies.find(movie => movie.rating >= rating);
+    });
+    res.json(filteredActors);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+};

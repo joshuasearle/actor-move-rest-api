@@ -46,6 +46,10 @@
 
 ---
 
+**`GET /actors/movies/:rating`**
+
+- Get all actors that have started in a movie with `rating` rating or greater
+
 ## Movie Endpoints
 
 **`GET /movies`**
