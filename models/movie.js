@@ -12,6 +12,15 @@ const movieSchema = new Schema({
     requred: true,
   },
   actors: [{ type: Schema.Types.ObjectId, ref: 'Actor' }],
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5,
+    validate: {
+      validator: Number.isInteger,
+      message: 'Rating must be an integer',
+    },
+  },
 });
 
 module.exports = mongoose.model('Movie', movieSchema);
